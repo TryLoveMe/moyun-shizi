@@ -48,6 +48,21 @@
   // ---------- 画廊 ----------
   function pyHTML(it) { return `<span class="tone-${it.tone}">${it.py}</span>`; }
 
+  // 闯关进度（由 quest.js 写入 localStorage）
+  function passBadge(ch) {
+    const r = window.Progress && Progress.get(ch);
+    return r ? `<span class="passed" title="已过关 ${r.times} 次">${'★'.repeat(r.best)}<i>过关</i></span>` : '';
+  }
+  function refreshBadges() {
+    [...gallery.children].forEach((card, i) => {
+      const it = state.items[i];
+      if (!it) return;
+      card.querySelector('.passed')?.remove();
+      const html = passBadge(it.ch);
+      if (html) card.insertAdjacentHTML('afterbegin', html);
+    });
+  }
+
   function makeCard(it, idx) {
     const el = document.createElement('article');
     el.className = 'card';
@@ -55,6 +70,7 @@
     el.innerHTML = `
       <canvas aria-label="${it.ch} 的水墨画"></canvas>
       ${it.poly.length ? '<span class="badge">多音字</span>' : ''}
+      ${passBadge(it.ch)}
       <div class="meta">
         <span class="hz">${it.ch}</span>
         <span class="py">${pyHTML(it)}</span>
@@ -243,6 +259,12 @@
       if (!cls.hidden) showSlide(state.cls);
     }, 300);
   });
+
+  window.App = {
+    state, say, ruby, pyHTML, refreshBadges,
+    focusInput: () => { input.focus(); input.placeholder = '先写几个字，再来闯关'; },
+    load: (t) => { input.value = t; update(t); },
+  };
 
   // ---------- 启动 ----------
   const start = new URL(location.href).searchParams.get('t') || '山水日月';

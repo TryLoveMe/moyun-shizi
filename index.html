@@ -26,7 +26,9 @@
     <div class="switches">
       <label class="switch"><input type="checkbox" id="opt-pinyin" checked /> <span>显示拼音</span></label>
       <label class="switch"><input type="checkbox" id="opt-speak" /> <span>自动朗读</span></label>
+      <button id="btn-quest" class="btn-primary">🎯 闯关学字</button>
       <button id="btn-class" class="btn-ghost">▶ 课堂模式</button>
+      <button id="btn-records" class="btn-ghost">📜 学习记录</button>
       <button id="btn-clear" class="btn-ghost">清空</button>
     </div>
   </section>
@@ -87,6 +89,36 @@
     <p class="cls-tip">键盘：← → 翻页，空格 朗读，P 显示/隐藏拼音，Esc 退出</p>
   </div>
 
+  <!-- 闯关学字 -->
+  <div id="quest" class="quest" hidden>
+    <div class="q-top">
+      <span class="q-level" id="q-level"></span>
+      <ol class="q-steps" id="q-steps">
+        <li data-step="0"><b>一</b>看画猜字</li>
+        <li data-step="1"><b>二</b>听音辨调</li>
+        <li data-step="2"><b>三</b>看笔顺</li>
+        <li data-step="3"><b>四</b>描写过关</li>
+      </ol>
+      <button id="q-exit" class="btn-ghost small">退出</button>
+    </div>
+    <div class="q-body">
+      <div class="q-art"><canvas id="q-canvas"></canvas></div>
+      <div class="q-panel" id="q-panel"></div>
+    </div>
+  </div>
+
+  <!-- 学习记录 -->
+  <dialog id="records" class="detail records">
+    <button class="close" data-close aria-label="关闭">×</button>
+    <h2>学习记录</h2>
+    <p class="rec-sum" id="rec-sum"></p>
+    <div class="rec-grid" id="rec-grid"></div>
+    <div class="rec-actions">
+      <button id="rec-review" class="btn-primary">复习错得多的字</button>
+      <button id="rec-clear" class="btn-ghost">清除记录</button>
+    </div>
+  </dialog>
+
   <footer class="foot">
     拼音：pinyin-pro · 笔顺：Hanzi Writer（数据来自 Make Me a Hanzi） · 字体：马善政毛笔楷书（OFL）
   </footer>
@@ -95,6 +127,7 @@
   <script src="vendor/hanzi-writer.min.js"></script>
   <script src="js/lexicon.js"></script>
   <script src="js/ink.js"></script>
+  <script src="js/quest.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
