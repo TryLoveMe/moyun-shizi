@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>墨韵识字 · 一字一画</title>
+  <meta name="description" content="中国风互动识字课件：输入汉字，每个字化作一幅水墨画，同时学拼音、看笔顺、练书写。" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <h1>墨韵识字</h1>
+      <span class="seal-mark">一字<br />一画</span>
+    </div>
+    <p class="tagline">写一个字，画一幅画 —— 识汉字 · 学拼音 · 看笔顺</p>
+  </header>
+
+  <section class="desk">
+    <div class="inkstone">
+      <input id="ink-input" type="text" autocomplete="off" maxlength="40"
+             placeholder="在这里写汉字，比如：山水日月" aria-label="输入汉字" />
+      <button id="btn-paint" class="btn-primary" title="回车也可以">挥毫</button>
+    </div>
+    <div class="lessons" id="lessons" aria-label="课堂预设"></div>
+    <div class="switches">
+      <label class="switch"><input type="checkbox" id="opt-pinyin" checked /> <span>显示拼音</span></label>
+      <label class="switch"><input type="checkbox" id="opt-speak" /> <span>自动朗读</span></label>
+      <button id="btn-class" class="btn-ghost">▶ 课堂模式</button>
+      <button id="btn-clear" class="btn-ghost">清空</button>
+    </div>
+  </section>
+
+  <main id="gallery" class="gallery" aria-live="polite"></main>
+  <p id="empty" class="empty">砚台已经磨好墨啦 —— 写下一个汉字，看看它会变成什么画。</p>
+
+  <!-- 学字卡 -->
+  <dialog id="detail" class="detail">
+    <button class="close" data-close aria-label="关闭">×</button>
+    <div class="detail-body">
+      <div class="detail-art">
+        <canvas id="detail-canvas"></canvas>
+        <button id="btn-repaint" class="btn-ghost small">↻ 再画一幅</button>
+      </div>
+      <div class="detail-info">
+        <div class="py-big" id="d-pinyin"></div>
+        <div class="py-parts" id="d-parts"></div>
+        <div class="row-hanzi">
+          <div class="tianzige" id="d-writer"></div>
+          <div class="row-actions">
+            <button id="d-speak" class="btn-primary">🔊 读一读</button>
+            <button id="d-stroke" class="btn-ghost">✍ 看笔顺</button>
+            <button id="d-quiz" class="btn-ghost">🖌 描一描</button>
+            <div class="stroke-count" id="d-strokes"></div>
+          </div>
+        </div>
+        <div class="words">
+          <h3>组词</h3>
+          <div id="d-words" class="word-list"></div>
+        </div>
+        <div class="rhyme">
+          <h3>读一句</h3>
+          <div id="d-line" class="line"></div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- 课堂模式 -->
+  <div id="classroom" class="classroom" hidden>
+    <div class="cls-stage">
+      <canvas id="cls-canvas"></canvas>
+      <div class="cls-side">
+        <div class="cls-pinyin" id="cls-pinyin"></div>
+        <div class="cls-char" id="cls-char"></div>
+        <button id="cls-reveal" class="btn-ghost">揭晓拼音</button>
+        <div class="cls-line" id="cls-line"></div>
+      </div>
+    </div>
+    <div class="cls-bar">
+      <button id="cls-prev" class="btn-ghost">← 上一个</button>
+      <span id="cls-index"></span>
+      <button id="cls-say" class="btn-primary">🔊 读</button>
+      <button id="cls-next" class="btn-ghost">下一个 →</button>
+      <button id="cls-exit" class="btn-ghost">退出</button>
+    </div>
+    <p class="cls-tip">键盘：← → 翻页，空格 朗读，P 显示/隐藏拼音，Esc 退出</p>
+  </div>
+
+  <footer class="foot">
+    拼音：pinyin-pro · 笔顺：Hanzi Writer（数据来自 Make Me a Hanzi） · 字体：马善政毛笔楷书（OFL）
+  </footer>
+
+  <script src="vendor/pinyin-pro.js"></script>
+  <script src="vendor/hanzi-writer.min.js"></script>
+  <script src="js/lexicon.js"></script>
+  <script src="js/ink.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
